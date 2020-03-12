@@ -1,10 +1,11 @@
 #include <iostream>
 using namespace std;
 
+template<class T>
 class Array
 {
 private:
-    int *A;
+    T *A;
     int size;
     int length;
     void swap(int *x,int *y);
@@ -14,13 +15,13 @@ public:
     {
         size=10;
         length=0;
-        A=new int[size];
+        A=new T[size];
     }
     Array(int sz)
     {
         size=sz;
         length=0;
-        A=new int[size];
+        A=new T[size];
     }
     ~Array()
     {
@@ -28,20 +29,20 @@ public:
     }
     
  void Display();
- void Append(int x);
- void Insert(int index,int x);
+ void Append(T x);
+ void Insert(int index,T x);
  int Delete(int index);
- int LinearSearch(int key);
- int BinarySearch(int key);
+ int LinearSearch(T key);
+ int BinarySearch(T key);
  int Get(int index);
- void Set(int index,int x);
+ void Set(int index,T x);
  int Max();
  int Min();
  int Sum();
  float Avg();
  void Reverse();
  void Reverse2();
- void InsertSort(int x);
+ void InsertSort(T x);
  int isSorted();
  void Rearrange();
  Array* Merge(Array arr2);
@@ -50,7 +51,8 @@ public:
  Array* Inter(Array arr2);
 };
 
-void Array::Display()
+template<class T>
+void Array<T>::Display()
 {
     int i;
     cout<<"\nElements are\n";
@@ -58,14 +60,16 @@ void Array::Display()
         cout<<A[i]<<" ";
 }
 
-void Array::Append(int x)
+template<class T>
+void Array<T>::Append(T x)
 {
     if(length<size)
     A[length++]=x;
 
 }
 
-void Array::Insert(int index,int x)
+template<class T>
+void Array<T>::Insert(int index,T x)
 {
     int i;
     if(index>=0 && index <=length)
@@ -78,7 +82,8 @@ void Array::Insert(int index,int x)
     
 }
 
-int Array::Delete(int index)
+template<class T>
+int Array<T>::Delete(int index)
 {
     int x=0;
     int i;
@@ -94,7 +99,8 @@ int Array::Delete(int index)
     return 0;
 }
 
-void Array::swap(int *x,int *y)
+template<class T>
+void Array<T>::swap(int *x,int *y)
 {
     int temp;
     temp=*x;
@@ -102,7 +108,8 @@ void Array::swap(int *x,int *y)
     *y=temp;
 }
 
-int Array::LinearSearch(int key)
+template<class T>
+int Array<T>::LinearSearch(T key)
 {
     int i;
     for(i=0;i<length;i++)
@@ -116,7 +123,8 @@ int Array::LinearSearch(int key)
     return -1;
 }
 
-int Array::BinarySearch(int key)
+template<class T>
+int Array<T>::BinarySearch(T key)
 {
     int l,mid,h;
     l=0;
@@ -135,20 +143,23 @@ int Array::BinarySearch(int key)
     return -1;
 }
 
-int Array::Get(int index)
+template<class T>
+int Array<T>::Get(int index)
 {
     if(index>=0 && index<length)
         return A[index];
     return -1;
 }
 
-void Array::Set(int index,int x)
+template<class T>
+void Array<T>::Set(int index,T x)
 {
     if(index>=0 && index< length)
         A[index]=x;
 }
 
-int Array::Max()
+template<class T>
+int Array<T>::Max()
 {
     int max=A[0];
     int i;
@@ -160,7 +171,8 @@ int Array::Max()
     return max;
 }
 
-int Array::Min()
+template<class T>
+int Array<T>::Min()
 {
     int min=A[0];
     int i;
@@ -172,7 +184,8 @@ int Array::Min()
     return min;
 }
 
-int Array::Sum()
+template<class T>
+int Array<T>::Sum()
 {
     int s=0;
     int i;
@@ -182,12 +195,14 @@ int Array::Sum()
     return s;
 }
 
-float Array::Avg()
+template<class T>
+float Array<T>::Avg()
 {
     return (float)Sum()/length;
 }
 
-void Array::Reverse()
+template<class T>
+void Array<T>::Reverse()
 {
     int *B;
     int i,j;
@@ -199,7 +214,8 @@ void Array::Reverse()
         A[i]=B[i];
 }
 
-void Array::Reverse2()
+template<class T>
+void Array<T>::Reverse2()
 {
     int i,j;
     for(i=0,j= length-1;i<j;i++,j--)
@@ -208,7 +224,8 @@ void Array::Reverse2()
     }
 }
 
-void Array::InsertSort(int x)
+template<class T>
+void Array<T>::InsertSort(T x)
 {
     int i= length-1;
     if( length== size)
@@ -222,7 +239,8 @@ void Array::InsertSort(int x)
     length++;
 }
 
-int Array::isSorted()
+template<class T>
+int Array<T>::isSorted()
 {
     int i;
     for(i=0;i<length-1;i++)
@@ -233,7 +251,8 @@ int Array::isSorted()
     return 1;
 }
 
-void Array::Rearrange()
+template<class T>
+void Array<T>::Rearrange()
 {
     int i,j;
     i=0;
@@ -248,7 +267,8 @@ void Array::Rearrange()
 
 }
 
-Array* Array::Merge(Array arr2)
+template<class T>
+Array<T>* Array<T>::Merge(Array<T> arr2)
 {
     int i,j,k;
     i=j=k=0;
@@ -271,7 +291,8 @@ Array* Array::Merge(Array arr2)
     return arr3;
     }
 
-Array* Array::Union(Array arr2)
+template<class T>
+Array<T>* Array<T>::Union(Array<T> arr2)
 {
     int i,j,k;
     i=j=k=0;
@@ -300,7 +321,8 @@ Array* Array::Union(Array arr2)
  return arr3;
 }
 
-Array* Array::Inter(Array arr2)
+template<class T>
+Array<T>* Array<T>::Inter(Array<T> arr2)
 {
     int i,j,k;
     i=j=k=0;
@@ -325,7 +347,8 @@ Array* Array::Inter(Array arr2)
     return arr3;
 }
 
-Array* Array::Diff(Array arr2)
+template<class T>
+Array<T>* Array<T>::Diff(Array<T> arr2)
 {
     int i,j,k;
     i=j=k=0;
@@ -355,13 +378,13 @@ Array* Array::Diff(Array arr2)
 
 int main()
 {
- Array *arr1;
+ Array<int> *arr1;
  int ch,sz;
  int x,index;
 
  cout<<"Enter Size of Array";
  scanf("%d",&sz);
- arr1=new Array(sz);
+ arr1=new Array<int>(sz);
 
  do
  {
