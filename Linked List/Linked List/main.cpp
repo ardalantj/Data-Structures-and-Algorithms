@@ -68,6 +68,30 @@ int sum(Node *p)
     return sum;
 }
 
+int max(Node *p)
+{
+    int max = INT32_MIN;
+    while(p != nullptr)
+    {
+        if(p->data > max)
+            max = p->data;
+        p = p->next;
+    }
+    return max;
+}
+
+int Rmax(Node *p)
+{
+    int x = 0;
+    
+    if(p == nullptr)
+        return INT32_MIN;
+    x = Rmax(p->next);
+    if(x>p->data)
+        return x;
+    else return p->data;
+}
+
 int main(int argc, const char * argv[]) {
    
     int A[] = {3,5,7,10,15};
