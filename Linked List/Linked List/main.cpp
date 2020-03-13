@@ -46,11 +46,34 @@ void Display(Node *p)
     }
 }
 
+int count(Node *p)
+{
+    int length = 0;
+    while(p != nullptr)
+    {
+        length++;
+        p = p->next;
+    }
+    return length;
+}
+
+int sum(Node *p)
+{
+    int sum = 0;
+    while(p != nullptr)
+    {
+        sum += p->data;
+        p = p->next;
+    }
+    return sum;
+}
+
 int main(int argc, const char * argv[]) {
    
     int A[] = {3,5,7,10,15};
     Create(A,5);
     Display(first);
+    printf("Length is %d", count(first));
     
     return 0;
 }
