@@ -92,6 +92,34 @@ int Rmax(Node *p)
     else return p->data;
 }
 
+Node* Search(Node *p, int key)
+{
+    Node *q = nullptr;
+    
+    while(p != nullptr)
+    {
+        if(key == p->data)
+        {
+            q->next = p->next;
+            p->next = first;
+            first = p;
+            return p;
+        }
+        q = p;
+        p = p->next;
+    }
+    return nullptr;
+}
+
+Node* RSearch(Node *p, int key)
+{
+    if(p == nullptr)
+        return nullptr;
+    if(key == p->data)
+        return p;
+    return RSearch(p->next, key);
+}
+
 int main(int argc, const char * argv[]) {
    
     int A[] = {3,5,7,10,15};
