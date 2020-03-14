@@ -46,7 +46,7 @@ void Display(Node *p)
     }
 }
 
-int count(Node *p)
+int Count(Node *p)
 {
     int length = 0;
     while(p != nullptr)
@@ -57,7 +57,7 @@ int count(Node *p)
     return length;
 }
 
-int sum(Node *p)
+int Sum(Node *p)
 {
     int sum = 0;
     while(p != nullptr)
@@ -68,7 +68,7 @@ int sum(Node *p)
     return sum;
 }
 
-int max(Node *p)
+int Max(Node *p)
 {
     int max = INT32_MIN;
     while(p != nullptr)
@@ -120,12 +120,37 @@ Node* RSearch(Node *p, int key)
     return RSearch(p->next, key);
 }
 
+void Insert(Node *p, int index, int x)
+{
+    Node *t;
+    
+    if(index < 0 || index > Count(p))
+        return;
+    t = new Node();
+    t->data = x;
+
+    if(index == 0)
+    {
+        t->next = first;
+        first = t;
+    }
+    else
+    {
+        for(int i = 1; i < index-1; i++)
+            p = p->next;
+        t->next = p->next;
+        p->next = t;
+    }
+}
+
 int main(int argc, const char * argv[]) {
    
-    int A[] = {3,5,7,10,15};
-    Create(A,5);
+    int A[] = {3,5,7};
+    Create(A,3);
     Display(first);
-    printf("Length is %d", count(first));
+   // printf("Length is %d", Count(first));
+    Insert(first, 3,10);
+    Display(first);
     
     return 0;
 }
