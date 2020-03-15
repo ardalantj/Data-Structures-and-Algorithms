@@ -143,13 +143,42 @@ void Insert(Node *p, int index, int x)
     }
 }
 
+void SortedInsert(Node *p, int x)
+{
+    Node *t, *q = nullptr;
+    t = new Node();
+    t->data=x;
+    t->next=nullptr;
+    
+    if(first == nullptr)
+        first = t;
+    else
+    {
+        while(p != nullptr && p->data < x)
+        {
+            q = p;
+            p = p->next;
+        }
+        if(p == first)
+        {
+            t->next = first;
+            first = t;
+        }
+        else
+        {
+            t->next = q->next;
+            q->next = t;
+        }
+    }
+}
+
 int main(int argc, const char * argv[]) {
    
     int A[] = {3,5,7};
     Create(A,3);
-    Display(first);
+    //Display(first);
    // printf("Length is %d", Count(first));
-    Insert(first, 3,10);
+    SortedInsert(first,2);
     Display(first);
     
     return 0;
