@@ -172,13 +172,43 @@ void SortedInsert(Node *p, int x)
     }
 }
 
+int Delete(Node *p, int index)
+{
+    Node *q = nullptr;
+    int x = -1;
+    
+    if(index < 1 || index > Count(p))
+        return -1;
+    if(index == 1)
+    {
+        q = first;
+        x = first->data;
+        first = first->next;
+        delete q;
+        return x;
+    }
+    else
+    {
+        for(int i = 0; i < index-1; i++)
+        {
+            q = p;
+            p = p->next;
+        }
+        q->next = p->next;
+        x = p->data;
+        delete p;
+        return x;
+    }
+}
+
 int main(int argc, const char * argv[]) {
    
-    int A[] = {3,5,7};
-    Create(A,3);
+    int A[] = {10,20,30,40};
+    Create(A,4);
     //Display(first);
    // printf("Length is %d", Count(first));
-    SortedInsert(first,2);
+    //SortedInsert(first,2);
+    Delete(first,4);
     Display(first);
     
     return 0;
