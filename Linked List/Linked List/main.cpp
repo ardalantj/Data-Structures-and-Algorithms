@@ -16,6 +16,9 @@ public:
 };
 
 Node *first = nullptr;
+Node *second = nullptr;
+Node *third = nullptr;
+
 
 void Create(int A[], int n)
 {
@@ -26,6 +29,27 @@ void Create(int A[], int n)
     first->data = A[0];
     first->next = nullptr;
     last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        temp = new Node;
+        temp->data = A[i];
+        temp->next = nullptr;
+        last->next = temp;
+        last = temp;
+    }
+}
+
+
+void Create2(int A[], int n)
+{
+    int i;
+    Node *temp,*last;
+    
+    second = new Node;
+    second->data = A[0];
+    second->next = nullptr;
+    last = second;
     
     for(i=1; i<n; i++)
     {
@@ -249,16 +273,66 @@ void Reverse(Node *p)
     first = q;
 }
 
+void Concat(Node *p, Node *q)
+{
+    third = p;
+    while(p->next != nullptr)
+    {
+        p = p->next;
+    }
+    p->next = q;
+    q = nullptr;
+}
+
+void Merge(Node *p, Node *q)
+{
+    Node *last;
+    if(p->data < q->data)
+    {
+        third = last = p;
+        p = p ->next;
+        third->next = nullptr;
+    }
+    else
+    {
+        third = last = q;
+        q = q->next;
+        third->next = nullptr;
+    }
+    while(p != nullptr && q != nullptr)
+    {
+        if(p->data < q->data)
+        {
+            last->next = p;
+            last = p;
+            p = p->next;
+            last->next = nullptr;
+        }
+        else
+        {
+            last->next = q;
+            last = q;
+            q = q->next;
+            last->next = nullptr;
+        }
+    }
+    if(p) last->next = p;
+    if(q) last->next = q;
+}
+
+
 int main(int argc, const char * argv[]) {
    
-    int A[] = {10,20,20,20,30,40,50};
-    Create(A,7);
+    int A[] = {10,20,30,40,50};
+    int B[] = {1,2,3,4,5};
+    Create(A,5);
+    Create2(B,5);
     //Display(first);
    // printf("Length is %d", Count(first));
     //SortedInsert(first,2);
     //Delete(first,4);
-    RemoveDuplicate(first);
-    Display(first);
-    
+    Merge(first, second);
+    Display(third);
+
     return 0;
 }
