@@ -15,12 +15,42 @@ public:
     Node *next;
 };
 
-Node *first = nullptr;
-Node *second = nullptr;
-Node *third = nullptr;
+//Node *first = nullptr;
+//Node *second = nullptr;
+//Node *third = nullptr;
 
+class LinkedList
+{
 
-void Create(int A[], int n)
+private:
+    Node *first;
+    
+public:
+    LinkedList(){first = nullptr;}
+    LinkedList(int A[], int n);
+    ~LinkedList();
+    
+    void Display();
+    void Insert(int index);
+    void Create2(int A[], int n);
+    int Count();
+    int Sum();
+    int Max();
+    int Rmax();
+    Node * Search(int key);
+    Node* RSearch(int key);
+    void Insert(int index, int x);
+    void SortedInsert(int x);
+    int Delete(int index);
+    bool isSorted();
+    void RemoveDuplicate();
+    void Reverse();
+    void Concat(Node *q);
+    int isLoop();
+    Node* Merge(Node* h2);
+};
+
+LinkedList::LinkedList(int A[], int n)
 {
     int i;
     Node *temp,*last;
@@ -40,11 +70,21 @@ void Create(int A[], int n)
     }
 }
 
+LinkedList::~LinkedList()
+{
+    Node *p = first;
+    while(first)
+    {
+        first = first->next;
+        delete p;
+        p = first;
+    }
+}
 
-void Create2(int A[], int n)
+void LinkedList::Create2(int A[], int n)
 {
     int i;
-    Node *temp,*last;
+    Node *temp,*last,*second;
     
     second = new Node;
     second->data = A[0];
@@ -61,8 +101,9 @@ void Create2(int A[], int n)
     }
 }
 
-void Display(Node *p)
+void LinkedList::Display()
 {
+    Node *p = first;
     while(p!=nullptr)
     {
         printf("%d ", p->data);
@@ -70,8 +111,9 @@ void Display(Node *p)
     }
 }
 
-int Count(Node *p)
+int LinkedList::Count()
 {
+    Node *p = first;
     int length = 0;
     while(p != nullptr)
     {
@@ -81,8 +123,9 @@ int Count(Node *p)
     return length;
 }
 
-int Sum(Node *p)
+int LinkedList::Sum()
 {
+    Node *p = first;
     int sum = 0;
     while(p != nullptr)
     {
@@ -92,8 +135,9 @@ int Sum(Node *p)
     return sum;
 }
 
-int Max(Node *p)
+int LinkedList::Max()
 {
+    Node *p = first;
     int max = INT32_MIN;
     while(p != nullptr)
     {
@@ -104,20 +148,22 @@ int Max(Node *p)
     return max;
 }
 
-int Rmax(Node *p)
+int LinkedList::Rmax()
 {
+    Node *p = first;
     int x = 0;
     
     if(p == nullptr)
         return INT32_MIN;
-    x = Rmax(p->next);
+    x = Rmax();
     if(x>p->data)
         return x;
     else return p->data;
 }
 
-Node* Search(Node *p, int key)
+Node* LinkedList::Search(int key)
 {
+    Node *p = first;
     Node *q = nullptr;
     
     while(p != nullptr)
@@ -135,20 +181,22 @@ Node* Search(Node *p, int key)
     return nullptr;
 }
 
-Node* RSearch(Node *p, int key)
+Node* LinkedList::RSearch(int key)
 {
+    Node *p = first;
     if(p == nullptr)
         return nullptr;
     if(key == p->data)
         return p;
-    return RSearch(p->next, key);
+    return RSearch(key);
 }
 
-void Insert(Node *p, int index, int x)
+void LinkedList::Insert(int index, int x)
 {
+    Node *p = first;
     Node *t;
     
-    if(index < 0 || index > Count(p))
+    if(index < 0 || index > Count())
         return;
     t = new Node();
     t->data = x;
@@ -167,8 +215,9 @@ void Insert(Node *p, int index, int x)
     }
 }
 
-void SortedInsert(Node *p, int x)
+void LinkedList::SortedInsert(int x)
 {
+    Node *p = first;
     Node *t, *q = nullptr;
     t = new Node();
     t->data=x;
@@ -196,12 +245,13 @@ void SortedInsert(Node *p, int x)
     }
 }
 
-int Delete(Node *p, int index)
+int LinkedList::Delete(int index)
 {
+    Node *p = first;
     Node *q = nullptr;
     int x = -1;
     
-    if(index < 1 || index > Count(p))
+    if(index < 1 || index > Count())
         return -1;
     if(index == 1)
     {
@@ -225,8 +275,9 @@ int Delete(Node *p, int index)
     }
 }
 
-bool isSorted(Node *p)
+bool LinkedList::isSorted()
 {
+    Node *p = first;
     int x = INT32_MIN;
     
     while(p != nullptr)
@@ -239,8 +290,9 @@ bool isSorted(Node *p)
     return true;
 }
 
-void RemoveDuplicate(Node *p)
+void LinkedList::RemoveDuplicate()
 {
+    Node *p = first;
     Node *q = p->next;
     while(q != nullptr)
     {
@@ -258,8 +310,9 @@ void RemoveDuplicate(Node *p)
     }
 }
 
-void Reverse(Node *p)
+void LinkedList::Reverse()
 {
+    Node *p = first;
     Node *q = nullptr;
     Node *r = nullptr;
     
@@ -273,9 +326,9 @@ void Reverse(Node *p)
     first = q;
 }
 
-void Concat(Node *p, Node *q)
+void LinkedList::Concat(Node *q)
 {
-    third = p;
+    Node *p = first;
     while(p->next != nullptr)
     {
         p = p->next;
@@ -284,44 +337,29 @@ void Concat(Node *p, Node *q)
     q = nullptr;
 }
 
-void Merge(Node *p, Node *q)
+Node* LinkedList::Merge(Node* h2)
 {
-    Node *last;
-    if(p->data < q->data)
-    {
-        third = last = p;
-        p = p ->next;
-        third->next = nullptr;
+    Node *p = first;
+    if (!p)
+        return h2;
+    if (!h2)
+        return p;
+  
+    // start with the linked list
+    // whose head data is the least
+    if (p->data < h2->data) {
+        p->next = Merge(h2);
+        return p;
     }
-    else
-    {
-        third = last = q;
-        q = q->next;
-        third->next = nullptr;
+    else {
+        h2->next = Merge(h2->next);
+        return h2;
     }
-    while(p != nullptr && q != nullptr)
-    {
-        if(p->data < q->data)
-        {
-            last->next = p;
-            last = p;
-            p = p->next;
-            last->next = nullptr;
-        }
-        else
-        {
-            last->next = q;
-            last = q;
-            q = q->next;
-            last->next = nullptr;
-        }
-    }
-    if(p) last->next = p;
-    if(q) last->next = q;
 }
 
-int isLoop(Node *f)
+int LinkedList::isLoop()
 {
+    Node *f = first;
     Node *p,*q;
     p = q = f;
     
@@ -341,15 +379,9 @@ int isLoop(Node *f)
 int main(int argc, const char * argv[]) {
    
     int A[] = {10,20,30,40,50};
-    int B[] = {1,2,3,4,5};
-    Create(A,5);
-    Create2(B,5);
-    //Display(first);
-   // printf("Length is %d", Count(first));
-    //SortedInsert(first,2);
-    //Delete(first,4);
-    Merge(first, second);
-    Display(third);
+    LinkedList l(A,5);
+    l.Insert(3,100);
+    l.Display();
 
     return 0;
 }
