@@ -5,9 +5,7 @@
 //  Created by Ardalan TJ on 4/1/20.
 //  Copyright © 2020 Ardalan TJ. All rights reserved.
 //
-
 #include <iostream>
-
 #define INF 999
 
 using namespace std;
