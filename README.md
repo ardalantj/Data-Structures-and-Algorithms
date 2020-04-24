@@ -1,6 +1,6 @@
 # Data-Structures-and-Algorithms
 This repository contains the core implementation of data structures and algorithms in C++.
-Here is a list of algorithms:
+Data Structures:
 
 1. Arrays as Data Structures
 2. Trees (BST, AVL)
@@ -8,3 +8,7 @@ Here is a list of algorithms:
 4. Stack and Queue 
 5. Linked List
 6. Graph 
+
+Algorithms:
+1. Dijkstra
+2. A*
